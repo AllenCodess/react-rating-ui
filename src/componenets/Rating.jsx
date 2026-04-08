@@ -1,5 +1,6 @@
-// importing a react hook that will let me add a intial state an update it
+// importing a react hook that will let me add a intial state an update it also importing star component
 import { useState } from "react";
+import Star from "./Star";
 
 // rating component/ includes a prop / default prop will run if a cusotm prop isnt set
 const Rating = ({heading,
@@ -22,18 +23,18 @@ const stars = Array.from({length:5}, (_, i) => i + 1);
   <div className="stars">
     {/* when you want to use javascript inside of the return Im assuming thats what jsx is you need to 
     wrap it in curly braces */}
-    {/* .map is performing a click event on each element. That event is adding a class of star based on a condition */}
+    {/* .map is iterating on each element and performing an action*/}
     { stars.map((star) => (
-        <span key={star}
-        onClick={() => setRating(star)}
-          onMouseEnter={() => setHover(star)}
-          onMouseLeave={() => setHover(0)}
-          style={{
-            color: star <= (hover || rating) ? color : '#ccc'
-          }}
-          
-          // unicode text for a star on each element
-          >{'\u2605'}</span>
+      // refacotred this into a star component
+      <Star key={star} 
+      star={star}
+      rating={rating}
+      hover={hover}
+      color={color}
+      ratingClick={() => setRating(star)}
+      ratingHover={() => setHover(star)}
+      ratingHoverLeave={() => setHover(0)}
+      />
     ))}
 </div>
 {/* this displays messages that corolates with the index of the array */}
