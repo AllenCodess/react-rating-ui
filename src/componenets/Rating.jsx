@@ -1,17 +1,15 @@
-// importing a react hook that will let me add a intial state an update it also importing star component
 import { useState } from "react";
 import Star from "./Star";
 import Modal from "./Modal"
 
-// rating component/ includes a prop / default prop will run if a cusotm prop isnt set
+
 const Rating = ({heading,
    color = 'gold',
     feedbackMessages= ['Terrible', 'Poor', 'Fair', 'Good', 'Excellent'] 
   }) => {
-  // stars is an array with the length of 5 characters, a _ as a placeholder, and the value is 1-5
+ 
 const stars = Array.from({length:5}, (_, i) => i + 1);
 
-// initial state is rating/hover which is defined as 0 and setRating/setHover is the updated state
     const [rating, setRating] = useState(0)
     const [hover, setHover] = useState(0)
     const [submitted, setSubmitted] = useState(false)
@@ -20,24 +18,18 @@ const stars = Array.from({length:5}, (_, i) => i + 1);
         setSubmitted(true)
       }
     }
-    
     const closeModal = () => {
       setSubmitted(false)
       setRating(0)
       setHover(0)
     }
 
-    // returning multiple elements
   return (
   <div className="rating-container">
-    {/* The prop is the text content for the heading */}
   <h2>{heading}</h2>
   <div className="stars">
-    {/* when you want to use javascript inside of the return Im assuming thats what jsx is you need to 
-    wrap it in curly braces */}
-    {/* .map is iterating on each element and performing an action*/}
+    
     { stars.map((star) => (
-      // refacotred this into a star component
       <Star key={star} 
       star={star}
       rating={rating}
@@ -49,7 +41,7 @@ const stars = Array.from({length:5}, (_, i) => i + 1);
       />
     ))}
 </div>
-{/* this displays messages that corolates with the index of the array */}
+
 {rating > 0 && <p className="feedback">{feedbackMessages[rating - 1]} </p>}
 <button className="submit-btn"
 onClick={handleSubmit}
