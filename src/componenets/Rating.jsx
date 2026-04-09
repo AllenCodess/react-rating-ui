@@ -1,6 +1,7 @@
 // importing a react hook that will let me add a intial state an update it also importing star component
 import { useState } from "react";
 import Star from "./Star";
+import Modal from "./Modal"
 
 // rating component/ includes a prop / default prop will run if a cusotm prop isnt set
 const Rating = ({heading,
@@ -13,7 +14,18 @@ const stars = Array.from({length:5}, (_, i) => i + 1);
 // initial state is rating/hover which is defined as 0 and setRating/setHover is the updated state
     const [rating, setRating] = useState(0)
     const [hover, setHover] = useState(0)
+    const [submitted, setSubmitted] = useState(false)
+    const handleSubmit = () => {
+      if (rating > 0) {
+        setSubmitted(true)
+      }
+    }
     
+    const closeModal = () => {
+      setSubmitted(false)
+      setRating(0)
+      setHover(0)
+    }
 
     // returning multiple elements
   return (
@@ -39,6 +51,11 @@ const stars = Array.from({length:5}, (_, i) => i + 1);
 </div>
 {/* this displays messages that corolates with the index of the array */}
 {rating > 0 && <p className="feedback">{feedbackMessages[rating - 1]} </p>}
+<button className="submit-btn"
+onClick={handleSubmit}
+disabled={rating === 0}>Submit</button>
+
+  <Modal isOpen={submitted} onClose={closeModal} rating={rating}/>
   </div>)
 }
 
